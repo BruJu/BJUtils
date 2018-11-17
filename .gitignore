@@ -1,0 +1,22 @@
+# Compilation
+target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+.git
+bin/
+
+# Fichiers non propriétaires
+ressources/
+sorties/
+ressources_gen/
+
+# hprof
+java.hprof.txt
+
+# Intellij
+.idea/
+*.iml
+*.iws
