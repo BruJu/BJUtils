@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class Contenu_ {
-	private final Table_ table;
+public class Enregistrement {
+	private final Table table;
 	List<Object> donnees;
 
-	public Contenu_(Table_ table, List<? extends Object> donnees) {
+	public Enregistrement(Table table, List<? extends Object> donnees) {
 		this.table = table;
 		this.donnees = new ArrayList<>(donnees);
 	}
