@@ -1,5 +1,6 @@
 package fr.bruju.util.table;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
@@ -7,9 +8,9 @@ public class Contenu_ {
 	private final Table_ table;
 	List<Object> donnees;
 
-	public Contenu_(Table_ table, List<Object> donnees) {
+	public Contenu_(Table_ table, List<? extends Object> donnees) {
 		this.table = table;
-		this.donnees = donnees;
+		this.donnees = new ArrayList<>(donnees);
 	}
 
 	public <T> T get(int idChamp) {

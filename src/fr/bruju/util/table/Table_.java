@@ -18,7 +18,7 @@ public class Table_ {
 
 
 
-	public void ajouterContenu(List<Object> donnees) {
+	public void ajouterContenu(List<? extends Object> donnees) {
 		if (donnees.size() != colonnes.size()) {
 			throw new NombreDeChampsInvalideException();
 		}
@@ -104,5 +104,11 @@ public class Table_ {
 		}
 
 		return -1;
+	}
+
+	public void ajouterChamps(List<String> nouvellesColonnes) {
+		for (String nouvellesColonne : nouvellesColonnes) {
+			insererChamp(colonnes.size(), nouvellesColonne, null);
+		}
 	}
 }
