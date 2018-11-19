@@ -126,7 +126,7 @@ public class Table {
 	 * @param idChamp La position de la colonne qui va être modifiée
 	 */
 	private void viderCacheColonnes(int idChamp) {
-		if (idChamp > positionDernierChampConnu) {
+		if (idChamp < positionDernierChampConnu) {
 			// Insertion après les champs déjà explorés, on ne fait rien
 			return;
 		}
