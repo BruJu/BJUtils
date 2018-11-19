@@ -1,6 +1,7 @@
 package fr.bruju.util.table;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
@@ -212,4 +213,27 @@ public class Table {
 
 		return liste;
 	}
+
+
+	public Table creerNouvelleTable(List<String> nouveauxChamps,
+                                    BiConsumer<Enregistrement, Consumer<List<? extends Object>>> fonctionDeParcours) {
+	    Table table = new Table();
+	    table.ajouterChamps(nouveauxChamps);
+	    table.forEach(contenu -> fonctionDeParcours.accept(contenu, table::ajouterContenu));
+	    return table;
+    }
+
+    public void reordonner(Iterable<Comparator<Enregistrement>> comparateurs) {
+	    this.enregistrements.sort((e1, e2) -> {
+            for (Comparator<Enregistrement> comparateur : comparateurs) {
+                int resultat = comparateur.compare(e1, e2);
+
+                if (resultat != 0) {
+                    return resultat;
+                }
+            }
+
+	        return Integer.compare(e1.hashCode(), e2.hashCode());
+        });
+    }
 }

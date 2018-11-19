@@ -90,4 +90,38 @@ public class ListUtils {
 
 		liste.addAll(explores);
 	}
+
+    /**
+     * Unifie les éléments de la liste et renvoie la nouvelle liste
+     * @param liste La liste de départ
+     * @param unificateur La fonction qui permet d'unifier deux éléments de la liste. La fonction doit renvoyer null
+     *                    si les deux éléments ne sont pas unifiables
+     * @param <T> Le type des éléments
+     * @return La liste contenant tous les éléments de la liste unifiés avec la fonction d'unification
+     */
+    public static <T> List<T> unifierElementsMitoyens(List<T> liste, BinaryOperator<T> unificateur) {
+        if (liste.size() <= 1) {
+            return new ArrayList<>(liste);
+        }
+
+        List<T> explores = new ArrayList<>();
+
+        while (!liste.isEmpty()) {
+            T caseRemplie = ListAsStack.pop(liste);
+
+            for (int i = liste.size() - 1 ; i >= 0 ; i--) {
+                T versionMitoyenne = unificateur.apply(caseRemplie, liste.get(i));
+
+                if (versionMitoyenne != null) {
+                    liste.remove(i);
+                    caseRemplie = versionMitoyenne;
+                }
+            }
+
+            explores.add(caseRemplie);
+        }
+
+        return explores;
+    }
+
 }
