@@ -143,6 +143,10 @@ public class Table {
 	 * @param generateur La fonction qui donne la valeur initiale du nouveau champ par rapport à l'enregistrement
 	 */
 	public void insererChamp(int idChamp, String nom, Function<Enregistrement, Object> generateur) {
+		if (idChamp == -1) {
+			idChamp = champs.size();
+		}
+
 		viderCacheColonnes(idChamp);
 		champsConnus.put(nom, idChamp);
 
