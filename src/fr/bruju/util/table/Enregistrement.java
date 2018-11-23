@@ -34,4 +34,13 @@ public class Enregistrement {
 			biConsumer.accept(table.getNomDuChamp(i), donnees.get(i));
 		}
 	}
+
+	/**
+	 * Renvoie la liste des données contenu par l'enregistrement.
+	 * @return Une ArrayList contenant les données contenu par l'enregistrement. La liste renvoyée est indépendante de
+	 * la liste utilisée en interne, mais les objets contenus sont les mêmes.
+	 */
+	public List<Object> getDonnees() {
+		return new ArrayList<>(donnees);
+	}
 }

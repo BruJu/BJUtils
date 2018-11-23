@@ -1,10 +1,10 @@
 package fr.bruju.util.table;
 
+import fr.bruju.util.ListUtils;
+import fr.bruju.util.Pair;
+
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
+import java.util.function.*;
 
 public class Table {
 	/** Nom des champs */
@@ -240,4 +240,48 @@ public class Table {
 	        return Integer.compare(e1.hashCode(), e2.hashCode());
         });
     }
+
+
+    public void unifier(BinaryOperator<Enregistrement> unificateur) {
+		enregistrements = ListUtils.fusionnerJusquaStabilite(enregistrements, unificateur);
+	}
+
+	public void unifier(Map<String, BinaryOperator<Object>> unificateurs) {
+		// On tente d'unifier d'abord sur les égalités car on considère que equals est moins couteux que les opérateurs
+		// de comparaisons définis par l'utilisateur
+		BinaryOperator<Enregistrement> unificateurUnifie = (e1, e2) -> {
+			for (int i = 0 ; i != champs.size() ; i++) {
+				String nomChamp = champs.get(i);
+
+				if (unificateurs.containsKey(nomChamp)) {
+					continue;
+				}
+
+				if (!e1.get(i).equals(e2.get(i))) {
+					return null;
+				}
+			}
+
+			Map<String, Object> transformationsAProduire = new HashMap<>();
+
+			for (Map.Entry<String, BinaryOperator<Object>> stringBinaryOperatorEntry : unificateurs.entrySet()) {
+				String nomChamp = stringBinaryOperatorEntry.getKey();
+				BinaryOperator<Object> comparateur = stringBinaryOperatorEntry.getValue();
+
+				Object objetProduit = comparateur.apply(e1.get(nomChamp), e2.get(nomChamp));
+
+				if (objetProduit == null) {
+					return null;
+				}
+
+				transformationsAProduire.put(nomChamp, objetProduit);
+			}
+
+			transformationsAProduire.forEach(e1::set);
+
+			return e1;
+		};
+
+		unifier(unificateurUnifie);
+	}
 }
