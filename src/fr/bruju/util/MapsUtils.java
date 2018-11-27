@@ -95,7 +95,7 @@ public class MapsUtils {
 		liste.add(element);
 	}
 
-	public static <K, V> void combiner(Map<K, V> destination, Map<K, V> source1, Map<K, V> source2,
+	public static <K, V> Map<K, V> combiner(Map<K, V> destination, Map<K, V> source1, Map<K, V> source2,
 								   BinaryOperator<V> fonctionDeCombinaison) {
 		Stream.of(source1.keySet(), source2.keySet())
 			  .flatMap(Set::stream)
@@ -107,6 +107,8 @@ public class MapsUtils {
 					  destination.put(cle, fonctionDeCombinaison.apply(valeur1, valeur2));
 				  }
 			  });
+
+		return destination;
 	}
 
 	public static <K, V> void combinerNonNull(Map<K, V> destination, Map<K, V> source1, Map<K, V> source2,
