@@ -284,4 +284,27 @@ public class Table {
 
 		unifier(unificateurUnifie);
 	}
+
+	public void supprimerEnregistrement(Predicate<Enregistrement> predicat) {
+		Iterator<Enregistrement> iterator = enregistrements.iterator();
+
+		while (iterator.hasNext()) {
+			if (predicat.test(iterator.next())) {
+				iterator.remove();;
+			}
+		}
+	}
+
+	/**
+	 * Parcours tous les enregistrements
+	 * @param predicat Prédicat filtrant les enregistrements sur lesquels seront appliqués l'action
+	 * @param consumer Fonction à appliquer sur les enregistrements
+	 */
+	public void forEach(Predicate<Enregistrement> predicat, Consumer<Enregistrement> consumer) {
+		for (Enregistrement enregistrement : enregistrements) {
+			if (predicat.test(enregistrement)) {
+				consumer.accept(enregistrement);
+			}
+		}
+	}
 }
