@@ -1,9 +1,6 @@
 package fr.bruju.util.reconnaissancedimage;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Motif preexistant
@@ -42,10 +39,14 @@ public class Motif {
 	 * @param serialisation La sérialisation du motif
 	 */
 	public Motif(String serialisation) {
-		Scanner scanner = new Scanner(serialisation);
-		lettre = scanner.next();
-		composition = lireTousLesNombres(scanner);
-		scanner.close();
+		String[] chaineSplittee = serialisation.split(" ");
+
+		lettre = chaineSplittee[0];
+		composition = new int[chaineSplittee.length - 1];
+
+		for (int i = 0 ; i != composition.length ; i++) {
+			composition[i] = Integer.parseInt(chaineSplittee[i + 1]);
+		}
 	}
 
 	/**
@@ -55,21 +56,6 @@ public class Motif {
 	 */
 	public Motif(int[] composition) {
 		this.composition = composition;
-	}
-
-	/**
-	 * Lis tous les nombres possibles via le scanner
-	 * @param scanner Le scanner
-	 * @return Un tableau avec tous les nombres lus via scanenr.nextInt();
-	 */
-	private int[] lireTousLesNombres(Scanner scanner) {
-		List<Integer> valeursMotif = new ArrayList<>();
-
-		while (scanner.hasNextInt()) {
-			valeursMotif.add(scanner.nextInt());
-		}
-		
-		return valeursMotif.stream().mapToInt(valeur -> valeur).toArray();
 	}
 
 	/**

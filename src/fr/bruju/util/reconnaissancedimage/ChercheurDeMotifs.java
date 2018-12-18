@@ -126,13 +126,11 @@ public class ChercheurDeMotifs {
 	}
 	
 	/**
-	 * Cherche le motif donné dans la base de motifs.
-	 * 
-	 * Si il n'y est pas, affiche le mot ayant posé problème, le motif ayant posé problème et la ligne de code à ajouter
-	 * à SymboleReconnus afin de compléter la liste des motifs préexistants
-	 * 
+	 * Cherche le motif donné dans la base de motifs. Si il n'y est pas, ajoute le motif à la liste des motifs inconnus
+	 * ainsi que des motifs connus.
+	 *
 	 * @param tab La représentation du motif
-	 * @return La chaîne représentant le motif
+	 * @return La chaîne représentant le motif, null si le motif n'est pas reconnu
 	 */
 	private String identifierMotif(int[] tab) {
 		for (Motif motif : motifs) {
