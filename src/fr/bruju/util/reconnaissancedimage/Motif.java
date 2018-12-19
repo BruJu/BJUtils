@@ -3,13 +3,32 @@ package fr.bruju.util.reconnaissancedimage;
 import java.util.Arrays;
 
 /**
- * Motif preexistant
+ * Classe représentant un motif. Les motifs sont composés de la chaîne représentée et d'une suite d'entiers décrivant
+ * le motif.
+ * <br><br>Le but de cette classe est de faire le lien entre un groupe de pixels dit allumés et sa représentation sous
+ * forme de chaîne.
+ * <br><br>Par exemple, cette classe permet de faire le lien entre le symbole "a" et le dessin suivant :
+ * <pre>
+ *     xxxxx
+ *         x
+ *     xxxxx
+ *     x   x
+ *     xxxxx
+ * </pre>
+ * <br>Les entiers sont l'encodage de chaque ligne du motif. Pour chaque entier,  a présence du ieme pixel allumé
+ * signifie que sa représentation se voit ajoutée du nombre 2^i.
+ * <br>Exemples :
+ * <ul>
+ *  <li>"x" = 1</li>
+ *  <li>"" = 0</li>
+ *  <li>"xx" = 3 (1 + 2)</li>
+ *  <li>" x" = 2</li>
+ *  <li>"x " = 1 (équivaut à "x"</li>
+ *  <li>"xx x" = 13 (1 + 2 + 0 + 8)</li>
+ * </ul>
+ * <br>Notre symbole a est donc encodé {31, 16, 31, 17, 31}
  */
 public class Motif {
-	/* ===========
-	 * OBJET MOTIF
-	 * =========== */
-	
 	/* --------------------------
 	 * Attributs et constructeurs
 	 * -------------------------- */
@@ -21,16 +40,6 @@ public class Motif {
 	 * Représentation numérique du motif
 	 * <br>Chaque nombre correspond à une ligne. Une ligne est encodé en utilisant la représentation binaire de la
 	 * suite de symboles de droite à gauche.
-	 * <br>Exemples :
-	 * <ul>
-	 *  <li>"x" = 1</li>
-	 *  <li>"" = 0</li>
-	 *  <li>"xx" = 3 (1 + 2)</li>
-	 *  <li>" x" = 2</li>
-	 *  <li>"x " = 1 (équivaut à "x"</li>
-	 *  <li>"xx x" = 13 (1 + 2 + 0 + 8)</li>
-	 * </ul>
-	 * Autrement dit, la présence du ieme symbole signifie que sa représentation se voit ajoutée du nombre 2^i
 	 */
 	private int[] composition;
 
