@@ -130,7 +130,7 @@ public class ListUtils {
 	 * @param evaluation La fonction d'évaluation d'un élément
 	 * @return La liste des éléments dont l'évaluation est la meilleure
 	 */
-	public static <T> Collection<T> filterBest(Collection<T> values, Function<T, Double> evaluation) {
+	public static <T> Collection<T> filtrerMeilleurs(Collection<T> values, Function<T, Double> evaluation) {
 		List<T> best = new ArrayList<>();
 		
 		Double bestValue = null;
